@@ -31,7 +31,7 @@ RUN apt-get update \
 
 RUN apt-get update \
     && apt-get install -y libaio1 libaio-dev zlib1g-dev libicu-dev g++ --no-install-recommends \
-    && pear config-set http_proxy ${http_proxy} \
+    && if [! -z ${http_proxy} ]; then pear config-set http_proxy ${http_proxy}; fi
     && printf "\n" | pecl install oci8-1.4.10 apcu-4.0.11 \
     && docker-php-ext-install pdo intl \
     && docker-php-ext-enable oci8 apcu \
